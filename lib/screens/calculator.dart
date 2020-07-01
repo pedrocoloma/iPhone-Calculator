@@ -26,11 +26,13 @@ class _CalculatorState extends State<Calculator> {
       ]);
 
     return MaterialApp(
-      home: Column(
-        children: <Widget>[
-          Display(brain.value),
-          Keyboard(_onPressed),
-        ],
+      home: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Display(brain.value),
+            Keyboard(_onPressed),
+          ],
+        ),
       ),
     );
   }

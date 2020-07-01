@@ -19,8 +19,10 @@ class Brain {
       return;
     }
 
-    if(command == 'AC') {
+    if(command == 'C') {
       _allClear();
+    } else if(command == '+/-') {
+      _invertSign();
     } else if(operations.contains(command)) {
       _setOperation(command);
     }
@@ -83,6 +85,12 @@ class Brain {
     _operation = null;
     _wipeValue = false;
 
+  }
+
+  _invertSign() {
+    final value = double.tryParse(_value) ?? 0;
+    _value = (-value).toString();
+    _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
   }
 
   _calculate() {
