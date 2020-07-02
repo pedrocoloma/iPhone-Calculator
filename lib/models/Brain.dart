@@ -4,7 +4,7 @@ class Brain {
   static const operations = const ['%', '/', 'x', '-', '+', '='];
   final _buffer = [0.0, 0.0];
   var _bufferIndex = 0;
-  var _operation;
+  var operation;
   String _value = '0';
   bool _wipeValue = true;
   String _lastCommand;
@@ -15,7 +15,7 @@ class Brain {
 
   void applyCommand(String command) {
     if(_isReplacingOperation(command)) {
-      _operation = command;
+      operation = command;
       return;
     }
 
@@ -44,7 +44,7 @@ class Brain {
     bool isEqualSign = newOperation == '=';
     if(_bufferIndex == 0) {
       if(!isEqualSign) {
-        _operation = newOperation;
+        operation = newOperation;
         _bufferIndex = 1;
         _wipeValue = true;
       }
@@ -55,7 +55,7 @@ class Brain {
       _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
 
 
-      _operation = isEqualSign ? null : newOperation;
+      operation = isEqualSign ? null : newOperation;
       _bufferIndex = isEqualSign ? 0 : 1;
     }
 
@@ -82,19 +82,21 @@ class Brain {
     _value = '0';
     _buffer.setAll(0, [0.0, 0.0]);
     _bufferIndex = 0;
-    _operation = null;
+    operation = null;
     _wipeValue = false;
 
   }
 
   _invertSign() {
-    final value = double.tryParse(_value) ?? 0;
-    _value = (-value).toString();
-    _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
+    if(_value != '0') {
+      final value = double.tryParse(_value) ?? 0;
+      _value = (-value).toString();
+      _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
+    }
   }
 
   _calculate() {
-    switch(_operation) {
+    switch(operation) {
       case '%': return _buffer[0] % _buffer[1];
       case '/': return _buffer[0] / _buffer[1];
       case 'x': return _buffer[0] * _buffer[1];
