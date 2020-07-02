@@ -26,11 +26,12 @@ class _CalculatorState extends State<Calculator> {
       ]);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Column(
           children: <Widget>[
             Display(brain.value),
-            Keyboard(_onPressed),
+            Keyboard(_onPressed, brain.operation),
           ],
         ),
       ),
