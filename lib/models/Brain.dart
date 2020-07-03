@@ -13,7 +13,7 @@ class Brain {
     return _value;
   }
 
-  void applyCommand(String command) {
+  applyCommand(String command) {
     if(_isReplacingOperation(command)) {
       operation = command;
       return;
@@ -40,7 +40,7 @@ class Brain {
         && command != '=';
   }
 
-  void _setOperation(String newOperation) {
+  _setOperation(String newOperation) {
     bool isEqualSign = newOperation == '=';
     if(_bufferIndex == 0) {
       if(!isEqualSign) {

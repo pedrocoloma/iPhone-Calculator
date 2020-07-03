@@ -8,3 +8,7 @@ iPhone's native calculator buil using Flutter.
 ## How to install
 Download this repo and run:
 ```flutter run```
+
+## Testing
+To run all unit tests:
+```flutter test```
