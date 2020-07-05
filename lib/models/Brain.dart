@@ -23,6 +23,8 @@ class Brain {
       _allClear();
     } else if(command == '+/-') {
       _invertSign();
+    } else if(command == '%') {
+      _hundredDivision();
     } else if(operations.contains(command)) {
       _setOperation(command);
     }
@@ -92,6 +94,13 @@ class Brain {
       final value = double.tryParse(_value) ?? 0;
       _value = (-value).toString();
       _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
+    }
+  }
+
+  _hundredDivision() {
+    if(_value != '0') {
+      final value = double.tryParse(_value) ?? 0;
+      _value = (value / 100).toString();
     }
   }
 
