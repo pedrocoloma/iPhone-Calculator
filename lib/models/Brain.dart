@@ -27,8 +27,7 @@ class Brain {
       _hundredDivision();
     } else if(operations.contains(command)) {
       _setOperation(command);
-    }
-    else {
+    } else {
       _addDigit(command);
     }
 
@@ -39,7 +38,9 @@ class Brain {
     return operations.contains(_lastCommand)
         && operations.contains(command)
         && _lastCommand != '='
-        && command != '=';
+        && command != '='
+        && _lastCommand != '%'
+        && command != '%';
   }
 
   _setOperation(String newOperation) {
@@ -55,7 +56,6 @@ class Brain {
       _buffer[1] = 0.0;
       _value = _buffer[0].toString();
       _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
-
 
       operation = isEqualSign ? null : newOperation;
       _bufferIndex = isEqualSign ? 0 : 1;
@@ -86,14 +86,15 @@ class Brain {
     _bufferIndex = 0;
     operation = null;
     _wipeValue = false;
-
   }
 
   _invertSign() {
     if(_value != '0') {
-      final value = double.tryParse(_value) ?? 0;
-      _value = (-value).toString();
+      var value = double.tryParse(_value) ?? 0;
+      value = -value;
+      _value = value.toString();
       _value = _value.endsWith('.0') ? _value.split('.')[0] : _value;
+      _buffer[_bufferIndex] = value;
     }
   }
 
