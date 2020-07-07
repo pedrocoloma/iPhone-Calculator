@@ -84,15 +84,6 @@ void main() {
       expect(brain.value, '3.5');
     });
 
-    // test('Division limmits decimal output', () {
-    //   brain.applyCommand('C');
-    //   brain.applyCommand('2');
-    //   brain.applyCommand('/');
-    //   brain.applyCommand('7');
-
-    //   expect(brain.value, '3.5');
-    // });
-
     test('Division by zero', () {
       brain.applyCommand('C');
       brain.applyCommand('5');
