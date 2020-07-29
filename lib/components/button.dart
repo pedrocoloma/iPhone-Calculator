@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
-  
+class Button extends StatefulWidget {
   static const lighterColor = Color.fromRGBO(165, 165, 165, 1);
   static const defaultColor = Color.fromRGBO(51, 51, 51, 1);
   static const orangeColor = Color.fromRGBO(250, 158, 13, 1);
@@ -9,15 +8,16 @@ class Button extends StatelessWidget {
 
   final String text;
   final bool isLarge;
-  Color color;
-  Color textColor = Colors.white;
-  bool isSeleccted;
+  final Color color;
+  final Color textColor;
+  final bool isSeleccted;
   final void Function(String) callback;
 
   Button({
     @required this.text,
     this.isLarge = false,
     this.color = defaultColor,
+    this.textColor = Colors.white,
     this.isSeleccted = false,
     @required this.callback,
   });
@@ -34,6 +34,7 @@ class Button extends StatelessWidget {
     @required this.text,
     this.isLarge = true,
     this.color = defaultColor,
+    this.textColor = Colors.white,
     this.isSeleccted = false,
     @required this.callback,
   });
@@ -42,19 +43,31 @@ class Button extends StatelessWidget {
     @required this.text,
     this.isLarge = false,
     this.color = orangeColor,
+    this.textColor = Colors.white,
     this.isSeleccted = false,
     @required this.callback,
   });
 
   @override
+  _ButtonState createState() => _ButtonState();
+}
+
+class _ButtonState extends State<Button> {
+  Color textColor;
+  Color color;
+
+  @override
   Widget build(BuildContext context) {
-    if(isSeleccted) {
-      textColor = orangeColor;
-      this.color = whiteColor;
+    this.textColor = widget.textColor;
+    this.color = widget.color;
+
+    if (widget.isSeleccted) {
+      this.textColor = Button.orangeColor;
+      this.color = Button.whiteColor;
     }
 
     return Expanded(
-      flex: isLarge ? 2 : 1,
+      flex: widget.isLarge ? 2 : 1,
       child: Padding(
         padding: const EdgeInsets.all(3.0),
         child: RaisedButton(
@@ -64,14 +77,14 @@ class Button extends StatelessWidget {
           ),
           color: this.color,
           child: Text(
-              text,
+            widget.text,
             style: TextStyle(
               color: textColor,
               fontSize: 32,
               fontWeight: FontWeight.w500,
             ),
           ),
-          onPressed: () => callback(text),
+          onPressed: () => widget.callback(widget.text),
         ),
       ),
     );
