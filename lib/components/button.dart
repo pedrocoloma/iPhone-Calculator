@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatefulWidget {
+class Button extends StatelessWidget {
   static const lighterColor = Color.fromRGBO(165, 165, 165, 1);
   static const defaultColor = Color.fromRGBO(51, 51, 51, 1);
   static const orangeColor = Color.fromRGBO(250, 158, 13, 1);
@@ -49,25 +49,17 @@ class Button extends StatefulWidget {
   });
 
   @override
-  _ButtonState createState() => _ButtonState();
-}
-
-class _ButtonState extends State<Button> {
-  Color textColor;
-  Color color;
-
-  @override
   Widget build(BuildContext context) {
-    this.textColor = widget.textColor;
-    this.color = widget.color;
+    Color displayedTextColor = textColor;
+    Color displayedColor = color;
 
-    if (widget.isSeleccted) {
-      this.textColor = Button.orangeColor;
-      this.color = Button.whiteColor;
+    if (isSeleccted) {
+      displayedTextColor = Button.orangeColor;
+      displayedColor = Button.whiteColor;
     }
 
     return Expanded(
-      flex: widget.isLarge ? 2 : 1,
+      flex: isLarge ? 2 : 1,
       child: Padding(
         padding: const EdgeInsets.all(3.0),
         child: RaisedButton(
@@ -75,16 +67,16 @@ class _ButtonState extends State<Button> {
             borderRadius: BorderRadius.circular(80.0),
             side: BorderSide(color: Colors.black, width: 4),
           ),
-          color: this.color,
+          color: displayedColor,
           child: Text(
-            widget.text,
+            text,
             style: TextStyle(
-              color: textColor,
+              color: displayedTextColor,
               fontSize: 32,
               fontWeight: FontWeight.w500,
             ),
           ),
-          onPressed: () => widget.callback(widget.text),
+          onPressed: () => callback(text),
         ),
       ),
     );
